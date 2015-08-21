@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+tools:ignore="TypographyDashes">
+    <integer name="ga_sessionTimeout">300</integer>
+    <bool name="ga_autoActivityTracking">true</bool>
+    <screenName name="com.soyoyoo.animalsinspaceapp.MainActivity">
+        AnimalsInSpaceApp Home
+    </screenName>
+    <screenName name="com.soyoyoo.animalsinspaceapp.SubActivity1">
+        AnimalsInSpaceApp Cat
+    </screenName>
+    <screenName name="com.soyoyoo.animalsinspaceapp.SubActivity2">
+        AnimalsInSpaceApp Dog
+    </screenName>
+    <screenName name="com.soyoyoo.animalsinspaceapp.VoteActivity">
+        AnimalsInSpaceApp Vote
+    </screenName>
+    <!--  The following value should be replaced with correct property id. -->
+    <string name="ga_trackingId">UA-22518857-4</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+tools:ignore="TypographyDashes">
+    <item path="/cat" 
+        layout="activity_sub1" 
+        animal="cat" 
+        app_uri="android-app://com.soyoyoo.animalsinspaceapp/dad/animals/cat/"
+        web_uri="http://http://glossy-depot-510.appspot.com/cat/"
+        screen_name="Cat"
+        prod_id="100001"
+        value="5000">
+    </item>
+   <item path="/dog" 
+        layout="activity_sub2" 
+        animal="dog" 
+        app_uri="android-app://com.soyoyoo.animalsinspaceapp/dad/animals/dog/"
+        web_uri="http://http://glossy-depot-510.appspot.com/dog/"
+        screen_name="Dog"
+        prod_id="100002"
+        value="15000">
+    </item>
+    <item path="/hamster" 
+        layout="activity_sub3" 
+        animal="hamster" 
+        app_uri="android-app://com.soyoyoo.animalsinspaceapp/dad/animals/hamster/"
+        web_uri="http://http://glossy-depot-510.appspot.com/hamster/"
+        screen_name="Hamster"
+        prod_id="100003"
+        value="20000">
+    </item>
+    <item path="/koala" 
+        layout="activity_sub4" 
+        animal="koala" 
+        app_uri="android-app://com.soyoyoo.animalsinspaceapp/dad/animals/koala/"
+        web_uri="http://http://glossy-depot-510.appspot.com/koala/"
+        screen_name="Koala"
+        prod_id="100004"
+        value="20000">
+    </item>
+</resources>

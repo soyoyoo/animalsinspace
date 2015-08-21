@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Animals In Space</string>
+    <string name="hello_world">One of these animals must be launched into space. You decide which one.</string>
+    <string name="action_settings">Settings</string>
+    <string name="Button">Privacy</string>
+    <string name="animal2">Dog</string>
+    <string name="animal1">Cat</string>
+    <string name="animal3">Hamster</string>
+    <string name="animal4">Koala</string>
+    <string name="image1desc">Cat</string>
+    <string name="image2desc">Dog</string>
+    <string name="image4desc">Koala</string>
+    <string name="image3desc">Hamster</string>
+    <string name="note">This is a training exercise. No animals will be launched into space.</string>
+    <string name="sendCat">Send this cat to space.</string>
+     <string name="sendDog">Send this dog to space.</string>
+     <string name="sendHamster">Send this hamster to space.</string>
+     <string name="sendKoala">Send this koala to space.</string>
+    <string name="voteCat">VOTE CAT NOW!</string>
+     <string name="voteDog">VOTE DOG NOW!</string>
+     <string name="voteHamster">VOTE HAMSTER NOW!</string>
+     <string name="voteKoala">VOTE KOALA NOW!</string>
+    <string name="catDesc">Cats - well known for their graceful poise, powerful night-vision, strong sense of self-worth and importance, and perhaps most importantly for their 9 lives! Who better to send into space than the lovable feline?</string>
+ <string name="dogDesc">DOGS - They bark. Very loyal. Part of the family. see in black and white have 42 teeth run everywhere Are mostly ugly The Labrador Retriever has webbed toes on all four paws to assist swimming.</string>
+ <string name="hamsterDesc">Join our campaign to send a hamster to space. We need your vote to help create a unique hamster habitat on other planets. Your vote to send a hamster to space has never before been so important for the survival of hamsters.</string>
+  <string name="koalaDesc">Think about it. Koalas are known for sleeping most of the day. They already spend all of their time in the top of the forest canopy - why not give this little buddy some more excitement and send him to the outer atmosphere?</string>
+   <string name="vote">Thank you for voting!</string> 
+    <string name="voteDesc">But WAIT, there\'s more!</string>
+    <string name="goHome">Go home</string>
+</resources>
