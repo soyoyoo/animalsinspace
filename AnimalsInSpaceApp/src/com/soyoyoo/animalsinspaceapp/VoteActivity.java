@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -28,24 +29,23 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.XmlResourceParser;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.webkit.JavascriptInterface;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 public class VoteActivity extends Activity {
 	private String animal;
 	private String prod_id;
 	private String value;
 	private String screen_name;
+	private String category;
+	private String tid;
+	private String store = "Soyoyoo Store";
+	private String coupon ="mobile";
 	// added by mincheoulkim @2015.6.18
 	private WebView webView;
 
@@ -67,14 +67,18 @@ public class VoteActivity extends Activity {
 
 	protected void onResume() {
 		super.onResume();
-
+		
 		Locale locale = Locale.getDefault();
 		DateFormat df = new SimpleDateFormat("yyyyMMdd", locale);
-		String sdt = df.format(new Date(System.currentTimeMillis()));
+		DateFormat dfs = new SimpleDateFormat("yyyyMMddHHmmss", locale);
+		Date dt = new Date(System.currentTimeMillis());
+		String sdt = df.format(dt);
+		tid = dfs.format(dt)+(new Random()).nextInt(9);
+		Log.v("VoteActivity","tid="+tid);
 		Map<String, Object> params = new HashMap<String, Object>();
 
 		params.put("action_type", "vote");
-		params.put("product_category", animal);
+		params.put("product_category", category);
 		params.put("value", value);
 		params.put("purchase_date", sdt);
 		AdWordsRemarketingReporter.reportWithConversionId(
@@ -88,16 +92,16 @@ public class VoteActivity extends Activity {
 		// Set screen name.
 		t.setScreenName("Vote");
 		Product product = new Product().setId(prod_id).setName(animal)
-				.setCategory("Space Animals").setBrand("Soyoyoo")
-				.setVariant("black").setPrice(Integer.parseInt(value))
+				.setCategory(category)
+				.setPrice(Integer.parseInt(value))
 				.setQuantity(1);
 		ProductAction productAction = new ProductAction(
-				ProductAction.ACTION_PURCHASE).setTransactionId("T12345")
-				.setTransactionAffiliation("AnimalsInSpace Online Store")
+				ProductAction.ACTION_PURCHASE).setTransactionId(tid)
+				.setTransactionAffiliation(store)
 				.setTransactionRevenue(Integer.parseInt(value))
 				.setTransactionTax(Math.round(Integer.parseInt(value) / 10))
 				.setTransactionShipping(2500)
-				.setTransactionCouponCode("mobile");
+				.setTransactionCouponCode(coupon);
 		hitBuilder.addProduct(product).setProductAction(productAction);
 		// Send a screen view.
 		t.send(hitBuilder.build());
@@ -138,6 +142,7 @@ public class VoteActivity extends Activity {
 						if (animalname.equals(animal)) {
 							prod_id = xrp.getAttributeValue(null, "prod_id");
 							value = xrp.getAttributeValue(null, "value");
+							category = xrp.getAttributeValue(null, "category");
 							screen_name = xrp.getAttributeValue(null,
 									"screen_name");
 							return;
