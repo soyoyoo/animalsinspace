@@ -106,7 +106,7 @@ int drawable koala_m 0x7f020024
 int drawable planet_bg_m 0x7f020025
 int drawable powered_by_google_dark 0x7f020026
 int drawable powered_by_google_light 0x7f020027
-int id action_settings 0x7f0b0021
+int id action_settings 0x7f0b0020
 int id book_now 0x7f0b000e
 int id button1 0x7f0b0017
 int id button2 0x7f0b0018
@@ -137,8 +137,7 @@ int id terrain 0x7f0b0004
 int id textView1 0x7f0b0014
 int id textView2 0x7f0b001d
 int id textView3 0x7f0b001e
-int id textView4 0x7f0b001f
-int id webview 0x7f0b0020
+int id webview 0x7f0b001f
 int id wrap_content 0x7f0b000d
 int integer google_play_services_version 0x7f080000
 int layout activity_main 0x7f030000

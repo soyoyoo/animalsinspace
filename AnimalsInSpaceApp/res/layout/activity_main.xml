@@ -49,12 +49,11 @@
 
         <Button
             android:id="@+id/button1"
-            style="@style/AppBaseTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="@string/animal1"
-            android:textColor="@color/color_yellow"
+            android:textColor="@color/color_white"
             android:textStyle="bold"
             android:width="120dp" />
 
@@ -64,7 +63,7 @@
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="@string/animal2"
-            android:textColor="@color/color_yellow"
+            android:textColor="@color/color_white"
             android:textStyle="bold"
             android:width="120dp" />
 
@@ -98,7 +97,7 @@
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="@string/animal3"
-            android:textColor="@color/color_yellow"
+            android:textColor="@color/color_white"
             android:textStyle="bold"
             android:width="120dp" />
 
@@ -108,7 +107,7 @@
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="@string/animal4"
-            android:textColor="@color/color_black"
+            android:textColor="@color/color_white"
             android:textStyle="bold"
             android:width="120dp" />
     </GridLayout>

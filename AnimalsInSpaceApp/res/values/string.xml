@@ -27,6 +27,6 @@
  <string name="hamsterDesc">Join our campaign to send a hamster to space. We need your vote to help create a unique hamster habitat on other planets. Your vote to send a hamster to space has never before been so important for the survival of hamsters.</string>
   <string name="koalaDesc">Think about it. Koalas are known for sleeping most of the day. They already spend all of their time in the top of the forest canopy - why not give this little buddy some more excitement and send him to the outer atmosphere?</string>
    <string name="vote">Thank you for voting!</string> 
-    <string name="voteDesc">But WAIT, there\'s more!</string>
+    <string name="voteDesc">But WAIT, there\'s more! Please share your thought on animals!</string>
     <string name="goHome">Go home</string>
 </resources>
