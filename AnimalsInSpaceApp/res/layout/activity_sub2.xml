@@ -42,8 +42,8 @@
        android:layout_gravity="center"
        android:onClick="onClick"
        android:text="@string/voteDog"
-       android:textColor="@color/color_white"
-       android:textColorHint="@color/color_white" />
+       android:textColor="@color/color_yellow"
+       android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView3"

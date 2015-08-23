@@ -109,8 +109,13 @@ public class SubActivity extends Activity {
 	public void onClick(View v) {
 
 		Intent intent = null;
-		switch (v.getId()) {
-		case R.id.button1 | R.id.imageView1:
+		int vid = v.getId();
+		Log.v("SubActivity", "v.getId() is: " + vid);
+		Log.v("SubActivity", "R.id.button1: " + R.id.button1);
+		
+		switch (vid) {
+		case R.id.button1:
+		case R.id.imageView1:
 
 			AdWordsConversionReporter.reportWithConversionId(
 					this.getApplicationContext(), "969704640",
