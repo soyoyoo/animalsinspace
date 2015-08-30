@@ -166,7 +166,7 @@ public class VoteActivity extends Activity {
 	// Codes to inflate WebView control and to bind Javascript to Android Java
 	// code
 	//
-	//Updated by JeeWook Kim
+	// Updated by JeeWook Kim
 	// @ 2015.8.21
 	// Simplified the code & added tracking using AdWords SDK and GA SDK
 	// ///////////////////////////////////////////////////////////////////////////////////////
@@ -189,13 +189,14 @@ public class VoteActivity extends Activity {
 	    WebAppInterface(Context c) {
 	        mContext = c;
 	    }
-	    /** Show a toast from the web page */
+	   
 	    @JavascriptInterface
 	    public void sendTrackingInfo(String sMessage){
+	    	// Track conversion using AW CT SDK
 	    	AdWordsConversionReporter.reportWithConversionId(
 	    			mContext.getApplicationContext(), "969704640",
 					"8GqWCM-Wpl8QwImyzgM", value, true);
-	    	// Build and send an Analytics Event.
+	    	// Build and send Google Analytics Event.
 	    	Tracker t = ((AnimalsInSpaceApp) getApplication())
 					.getTracker(TrackerName.APP_TRACKER);	
 	    	t.send(new HitBuilders.EventBuilder()
@@ -203,6 +204,14 @@ public class VoteActivity extends Activity {
 	    	    .setAction("survey")
 	    	    .setLabel(sMessage)
 	    	    .setCustomMetric(4, 1)
+	    	    .build());
+	    }
+	    @JavascriptInterface
+	    public void sendTimingInfo(long elapsedTime) {
+	    	// Build and send Google Analytics User Timing.
+	    	Tracker t = ((AnimalsInSpaceApp) getApplication())
+					.getTracker(TrackerName.APP_TRACKER);	
+	    	t.send(new HitBuilders.TimingBuilder("load time", "survey", elapsedTime)
 	    	    .build());
 	    }
 	}
