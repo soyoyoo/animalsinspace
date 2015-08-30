@@ -1,6 +1,7 @@
-/*
+/**
  * 		Animals-In-Space Demo App
  * 		by JeeWook Kim
+ * 		THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND
  */
 package com.soyoyoo.animalsinspaceapp;
 
