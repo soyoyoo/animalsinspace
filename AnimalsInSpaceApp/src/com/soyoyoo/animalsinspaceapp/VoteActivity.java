@@ -1,8 +1,16 @@
-/**
- * 		Animals-In-Space Demo App
- * 		by JeeWook Kim
- * 		THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND
- */
+/*
+Copyright 2015 Google Inc. All Rights Reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package com.soyoyoo.animalsinspaceapp;
 
 import java.io.IOException;
@@ -61,8 +69,7 @@ public class VoteActivity extends Activity {
 		setContentView(R.layout.activity_vote);
 		TextView textView1 = (TextView) findViewById(R.id.textView1);
 		textView1.setText(screen_name);
-		// added by mincheoulkim @2015.6.18
-		// Setting up WebView configuration here
+	
 		ConfigureWebView();
 	}
 
@@ -159,17 +166,7 @@ public class VoteActivity extends Activity {
 
 	}
 
-	// ////////////////////////////////////////////////////////////////////////////////////////
-	// Added by Min Cheoul Kim
-	// @ 2015.6.18
-	//
-	// Codes to inflate WebView control and to bind Javascript to Android Java
-	// code
-	//
-	// Updated by JeeWook Kim
-	// @ 2015.8.21
-	// Simplified the code & added tracking using AdWords SDK and GA SDK
-	// ///////////////////////////////////////////////////////////////////////////////////////
+	
 
 	private void ConfigureWebView() {
 		webView = (WebView) findViewById(R.id.webview);
