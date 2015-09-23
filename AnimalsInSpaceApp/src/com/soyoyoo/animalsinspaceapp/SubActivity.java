@@ -48,6 +48,8 @@ import com.google.android.gms.appindexing.AppIndexApi.AppIndexingLink;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class SubActivity extends Activity {
+	// App Indexing URLs
+	// For detail info for App Indexing: https://developers.google.com/app-indexing/android/appActivity
 	private Uri APP_URI = Uri
 			.parse("android-app://com.soyoyoo.animalsinspaceapp/dad/animals/cat/");
 	private Uri WEB_URL = Uri
@@ -69,9 +71,11 @@ public class SubActivity extends Activity {
 		String uri = intent.toUri(0);
 		Log.v("SubActivity", "onCreate() URI is: " + uri);
 		path = (String) intent.getExtras().get("path");
+		// get values for layout, product id, screen name, etc depending on the deep-link path
 		initialiseFromXml(path);
 		mClient = new GoogleApiClient.Builder(this).addApi(
 				AppIndex.APP_INDEX_API).build();
+		// set content depending on the deep-link path
 		setContentView(layout_id);
 	}
 
@@ -86,23 +90,28 @@ public class SubActivity extends Activity {
 		Locale locale = Locale.getDefault();
 		DateFormat df = new SimpleDateFormat("yyyyMMdd", locale);
 		String sdt = df.format(new Date(System.currentTimeMillis()));
+		// set custom parameters for re-marketing segment gathering
 		Map<String, Object> params = new HashMap<String, Object>();
-
 		params.put("action_type", "land");
 		params.put("product_category", animal);
 		params.put("value", value);
 		params.put("product_id", prod_id);
 		params.put("view_date", sdt);
+		// send re-marketing parameters to AdWords
 		AdWordsRemarketingReporter.reportWithConversionId(
 				getApplicationContext(), "969704640", params);
+		// get a Google Analytics tracker
 		Tracker t = ((AnimalsInSpaceApp) getApplication())
 				.getTracker(TrackerName.APP_TRACKER);
 		ScreenViewBuilder hitBuilder = new HitBuilders.ScreenViewBuilder();
+		// set custom dimension
 		hitBuilder.setCustomDimension(1, "land");
+		// set custom metrics
 		hitBuilder.setCustomMetric(1, Integer.parseInt(value));
 		hitBuilder.setCustomMetric(2, 1);
 		// Set screen name.
 		t.setScreenName(screen_name);
+		// Enhanced Ecommerce tracking
 		Product product = new Product().setId(prod_id).setName(animal)
 				.setCategory("Space Animals").setBrand("Soyoyoo")
 				.setVariant("black").setPrice(Integer.parseInt(value)).setQuantity(1);
@@ -125,7 +134,7 @@ public class SubActivity extends Activity {
 		switch (vid) {
 		case R.id.button1:
 		case R.id.imageView1:
-
+			// report a conversion to AdWords
 			AdWordsConversionReporter.reportWithConversionId(
 					this.getApplicationContext(), "969704640",
 					"483qCPOJvFcQwImyzgM", value, true);

@@ -18,10 +18,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-
 import com.google.android.gms.analytics.CampaignTrackingReceiver;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.analytics.HitBuilders.EventBuilder;
 import com.google.android.gms.analytics.HitBuilders.ScreenViewBuilder;
 import com.google.ads.conversiontracking.InstallReceiver;
 import com.soyoyoo.animalsinspaceapp.AnimalsInSpaceApp.TrackerName;
@@ -33,22 +33,25 @@ public class CustomReceiver extends BroadcastReceiver {
 		
 		String uri = intent.toUri(0);
 		Log.w("CustomReceiver", "URI is: " + uri);
-		
+		// get referrer string from an installation intent
 		String referrerString = intent.getStringExtra("referrer");
 		Log.w("CustomReceiver", "Referrer is: " + referrerString);
-		
+		// get an instance of Google Analytics tracker
 		Tracker t = ((AnimalsInSpaceApp) context.getApplicationContext())
 				.getTracker(TrackerName.APP_TRACKER);
-		ScreenViewBuilder hitBuilder = new HitBuilders.ScreenViewBuilder();
-		
+		// create an EventBuilder to send an event to GA
+		EventBuilder hitBuilder = new HitBuilders.EventBuilder("interaction", "installation");
+		// set custom dimensions
 		if (referrerString!=null) hitBuilder.setCustomDimension(3, referrerString);
-		if (uri!=null) hitBuilder.setCustomDimension(2, uri);
-		t.setScreenName("DeepLinkActivity");
-		t.send(hitBuilder.build());
+		if (uri!=null) {
+			hitBuilder.setCustomDimension(2, uri);
+			hitBuilder.setLabel(uri);  // set label for event tracking
+		}
+		t.send(hitBuilder.build()); // send an event to GA
 		
-		// Pass the intent to AdWords SDK receivers.
+		// Pass the intent to AdWords Conversion Tracking SDK receiver
 		new InstallReceiver().onReceive(context, intent);
-		// When you're done, pass the intent to the Google Analytics receiver.
+		// Pass the intent to the Google Analytics campaign tracking receiver
 		new CampaignTrackingReceiver().onReceive(context, intent);
 	}
 }

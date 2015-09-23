@@ -19,7 +19,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.GoogleAnalytics;
 
 import java.util.HashMap;
-// UA-22518857-3
+
 public class AnimalsInSpaceApp extends Application {
 	// The following line should be changed to include the correct property id.
     private static final String PROPERTY_ID = "UA-22518857-3";

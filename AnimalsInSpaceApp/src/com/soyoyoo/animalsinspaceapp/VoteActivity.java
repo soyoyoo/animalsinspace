@@ -55,7 +55,6 @@ public class VoteActivity extends Activity {
 	private String tid;
 	private String store = "Soyoyoo Store";
 	private String coupon ="mobile";
-	// added by mincheoulkim @2015.6.18
 	private WebView webView;
 
 	@Override
@@ -69,7 +68,7 @@ public class VoteActivity extends Activity {
 		setContentView(R.layout.activity_vote);
 		TextView textView1 = (TextView) findViewById(R.id.textView1);
 		textView1.setText(screen_name);
-	
+		// configure WebView to demonstrate WebView tracking using AdWords SDK and GA SDK
 		ConfigureWebView();
 	}
 
@@ -83,22 +82,27 @@ public class VoteActivity extends Activity {
 		String sdt = df.format(dt);
 		tid = dfs.format(dt)+(new Random()).nextInt(9);
 		Log.v("VoteActivity","tid="+tid);
+		// set custom parameters for re-marketing segment gathering
 		Map<String, Object> params = new HashMap<String, Object>();
-
 		params.put("action_type", "vote");
 		params.put("product_category", category);
 		params.put("value", value);
 		params.put("purchase_date", sdt);
+		// send re-marketing parameters to AdWords
 		AdWordsRemarketingReporter.reportWithConversionId(
 				getApplicationContext(), "969704640", params);
+		// get a Google Analytics tracker
 		Tracker t = ((AnimalsInSpaceApp) getApplication())
 				.getTracker(TrackerName.APP_TRACKER);
 		ScreenViewBuilder hitBuilder = new HitBuilders.ScreenViewBuilder();
+		// set custom dimension
 		hitBuilder.setCustomDimension(1, "land");
+		// set custom metrics
 		hitBuilder.setCustomMetric(1, Integer.parseInt(value));
 		hitBuilder.setCustomMetric(3, 1);
 		// Set screen name.
 		t.setScreenName("Vote");
+		// Enhanced Ecommerce tracking
 		Product product = new Product().setId(prod_id).setName(animal)
 				.setCategory(category)
 				.setPrice(Integer.parseInt(value))
@@ -121,6 +125,7 @@ public class VoteActivity extends Activity {
 		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.button1:
+			// report a conversion to AdWords
 			AdWordsConversionReporter.reportWithConversionId(
 					this.getApplicationContext(), "969704640",
 					"lNlxCKPUwFcQwImyzgM", value, true);
@@ -176,24 +181,24 @@ public class VoteActivity extends Activity {
 		// Enable Viewport
 		webSettings.setUseWideViewPort(true);
 		webView.addJavascriptInterface(new WebAppInterface(this), "animalsinapp");
-		// load sample page
+		// load sample page where user action and load time are being tracked
 		webView.loadUrl("http://1-dot-glossy-depot-510.appspot.com/vote/survey.html");
 	}
 
 	final class WebAppInterface {
 	    Context mContext;
-	    /** Instantiate the interface and set the context */
+	    // Instantiate the interface and set the context
 	    WebAppInterface(Context c) {
 	        mContext = c;
 	    }
 	   
 	    @JavascriptInterface
 	    public void sendTrackingInfo(String sMessage){
-	    	// Track conversion using AW CT SDK
+	    	// Track conversion using AdWords Conversion Tracking SDK
 	    	AdWordsConversionReporter.reportWithConversionId(
 	    			mContext.getApplicationContext(), "969704640",
 					"8GqWCM-Wpl8QwImyzgM", value, true);
-	    	// Build and send Google Analytics Event.
+	    	// Build and send Google Analytics event.
 	    	Tracker t = ((AnimalsInSpaceApp) getApplication())
 					.getTracker(TrackerName.APP_TRACKER);	
 	    	t.send(new HitBuilders.EventBuilder()
@@ -205,7 +210,7 @@ public class VoteActivity extends Activity {
 	    }
 	    @JavascriptInterface
 	    public void sendTimingInfo(long elapsedTime) {
-	    	// Build and send Google Analytics User Timing.
+	    	// Build and send Google Analytics User Timing tracking
 	    	Tracker t = ((AnimalsInSpaceApp) getApplication())
 					.getTracker(TrackerName.APP_TRACKER);	
 	    	t.send(new HitBuilders.TimingBuilder("load time", "survey", elapsedTime)

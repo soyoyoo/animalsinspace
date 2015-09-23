@@ -32,39 +32,44 @@ public class DeepLinkActivity extends Activity {
 
 		String uri = intent.toUri(0);
 		Log.v("DeepLinkActivity", "URI is: " + uri);
-
+		// get the referrer from the intent
 		String referrerString = intent.getStringExtra("referrer");
 		Log.v("DeepLinkActivity", "referrer from Extra is: " + referrerString);
 
 		Uri intentData = intent.getData();
 		Log.v("DeepLinkActivity", "intentData is: " + intentData.toString());
+		// get the path from the intent
 		String path = intentData.getPath().toString();
 		Log.v("DeepLinkActivity", "Intent path: " + path);
+		// get the utm parameter from query string
 		String campaignData = intentData.getQueryParameter("utm_campaign");
 		Log.v("DeepLinkActivity", "campaignData is: " + campaignData);
 		String referrerValue = intentData.getQueryParameter("referrer");
 		Log.v("DeepLinkActivity", "referrer from URI param is: "
 				+ referrerValue);
+		// get Google Analytics tracker instance
 		Tracker t = ((AnimalsInSpaceApp) getApplication())
 				.getTracker(TrackerName.APP_TRACKER);
+		// create an event builder to send an event to Google Analytics
 		EventBuilder hitBuilder = new HitBuilders.EventBuilder("interaction", "deeplink");
 		if (uri != null)
-			hitBuilder.setCustomDimension(2, uri);
-			hitBuilder.setLabel(path);
+			hitBuilder.setCustomDimension(2, uri);  // set custom dimension
+			hitBuilder.setLabel(path); // set label for event tracking
 		if (referrerValue != null) {
 			hitBuilder.setCustomDimension(3, referrerValue);
+			// register the installation referrer with AdWords Conversion Tracking SDK
 			AdWordsConversionReporter.registerReferrer(
 					this.getApplicationContext(), this.getIntent().getData());
 
 		}
-		// Animals In Space Deeplink (unique)
+		// Conversion : Animals In Space Deeplink (unique)
 		// Google Android in-app conversion tracking snippet
 		// Add this code to the event you'd like to track in your app
 
 		AdWordsConversionReporter.reportWithConversionId(
 				this.getApplicationContext(), "969704640",
 				"zGTJCP6m410QwImyzgM", "0.00", false);
-		// Animals In Space Deeplink (repeat)
+		// Conversion: Animals In Space Deeplink (repeat)
 		// Google Android in-app conversion tracking snippet
 		// Add this code to the event you'd like to track in your app
 
@@ -74,14 +79,14 @@ public class DeepLinkActivity extends Activity {
 		
 		if (campaignData != null) {
 			t.send(hitBuilder.setCampaignParamsFromUrl(intentData.toString())
-					.build());
+					.build()); // send an event with campaign tracking data to Google Analytics
 		} else {
-			t.send(hitBuilder.build());
+			t.send(hitBuilder.build()); // send an event to Google Analytics
 		}
 
 		intent = new Intent(this, SubActivity.class);
 		intent.putExtra("path", path);
-		startActivity(intent);
+		startActivity(intent); // start SubActivity
 		finish();
 	}
 

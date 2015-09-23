@@ -54,6 +54,8 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import java.io.IOException;
 
 public class MainActivity extends Activity {
+	// App Indexing URLs
+	// For detail info for App Indexing: https://developers.google.com/app-indexing/android/appActivity
 	static final Uri APP_URI = Uri
 			.parse("android-app://com.soyoyoo.animalsinspaceapp/dad/animals/");
 	static final Uri WEB_URL = Uri
@@ -69,6 +71,7 @@ public class MainActivity extends Activity {
 		Log.v("MainActivity", "v.getId() is: " + String.valueOf(v.getId()));
 		String path = paths.get(v.getId());
 		Log.v("MainActivity", "path = "+path);
+		// report conversion to AdWords
 		AdWordsConversionReporter.reportWithConversionId(
 				this.getApplicationContext(), "969704640",
 				"tSR_CIrIulcQwImyzgM", "5.00", true);
@@ -120,15 +123,14 @@ public class MainActivity extends Activity {
 
 	protected void onResume() {
 		super.onResume();
-		Thread thr = new Thread(new Runnable() {
+		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					aid = getIdThread();
+					aid = getIdThread();  // get advertising id
 					Log.v("ADID", aid);
 					finished(aid);
 				} catch (Exception e) {
-					// All exceptions blocks
 					e.printStackTrace();
 					finished(null);
 				}
@@ -136,20 +138,20 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		thr.start();
+		thread.start();
 
 		// Enable automated usage reporting.
 		AdWordsAutomatedUsageReporter.enableAutomatedUsageReporting(
 				this.getApplicationContext(), "969704640");
-		// Animals In Space App open (unique)
+		// Conversion: Animals In Space App open (unique)
 		// Google Android in-app conversion tracking snippet
 		// Add this code to the event you'd like to track in your app
 
 		AdWordsConversionReporter.reportWithConversionId(
 				this.getApplicationContext(), "969704640",
-				"Nm1ZCIro7V0QwImyzgM", "0.00", false);
+				"Nm1ZCIro7V0QwImyzgM", "0.00", false); // set the repeat parameter to false
 
-		// Animals In Space app open (repeat)
+		// Conversion: Animals In Space app open (repeat)
 		// Google Android in-app conversion tracking snippet
 		// Add this code to the event you'd like to track in your app
 
@@ -160,30 +162,36 @@ public class MainActivity extends Activity {
 		Locale locale = Locale.getDefault();
 		DateFormat df = new SimpleDateFormat("yyyyMMdd", locale);
 		String sdt = df.format(new Date(System.currentTimeMillis()));
+		// set custom parameters for re-marketing segment gathering 
 		Map<String, Object> params2 = new HashMap<String, Object>();
 		params2.put("action_type", "page_view");
 		params2.put("page", "home");
 		params2.put("value", "1");
 		params2.put("open_date", sdt);
+		// send re-marketing parameters to AdWords
 		AdWordsRemarketingReporter.reportWithConversionId(
 				getApplicationContext(), "969704640", params2);
 
 	}
 
 	protected void finished(String aid) {
+		// get a tracker for Google Analytics
 		Tracker t = ((AnimalsInSpaceApp) getApplication())
 				.getTracker(TrackerName.APP_TRACKER);
+		// create a ScreenViewBuilder to send a screen view to Google Analytics
 		ScreenViewBuilder hitBuilder = new HitBuilders.ScreenViewBuilder();
+		// set custom dimensions
 		hitBuilder.setCustomDimension(4, aid);
 		hitBuilder.setCustomDimension(1, "page_view");
 
 		Log.v("AIID", aid);
+		// set a custom metric
 		hitBuilder.setCustomMetric(1, 1);
 
-		// Set screen name.
+		// Set a screen name
 		t.setScreenName("Home");
 
-		// Send a screen view.
+		// Send a screen view to Google Analytics
 		t.send(hitBuilder.build());
 	}
 
@@ -192,7 +200,7 @@ public class MainActivity extends Activity {
 		// Connect your client
 		mClient.connect();
 
-		// Define the outlinks on the page for both app and web
+		// Define the outlinks on the page for both app and web for deep-linking
 		Uri appUri1 = Uri
 				.parse("android-app://com.soyoyoo.animalsinspaceapp/dad/animals/cat/");
 		Uri webUrl1 = Uri
@@ -210,7 +218,7 @@ public class MainActivity extends Activity {
 		Uri webUrl4 = Uri
 				.parse("http://http://glossy-depot-510.appspot.com/koala/");
 
-		// Create App Indexing Link objects
+		// Create App Indexing link objects
 		AppIndexingLink item1 = new AppIndexingLink(appUri1, webUrl1,
 				this.findViewById(R.id.button1));
 		AppIndexingLink item2 = new AppIndexingLink(appUri2, webUrl2,
@@ -220,7 +228,7 @@ public class MainActivity extends Activity {
 		AppIndexingLink item4 = new AppIndexingLink(appUri4, webUrl4,
 				this.findViewById(R.id.button4));
 
-		// Create a list out of these objects
+		// Create a list out of App Indexing link objects
 		List<AppIndexingLink> outlinks = new ArrayList<AppIndexingLink>();
 		outlinks.add(item1);
 		outlinks.add(item2);
@@ -249,13 +257,9 @@ public class MainActivity extends Activity {
 					.getApplicationContext());
 
 		} catch (IOException e) {
-			// Unrecoverable error connecting to Google Play services (e.g.,
-			// the old version of the service doesn't support getting
-			// AdvertisingId).
 			e.printStackTrace();
 
 		} catch (GooglePlayServicesNotAvailableException e) {
-			// Google Play services is not available entirely.
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -265,7 +269,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 		if (!adInfo.isLimitAdTrackingEnabled())
-			return adInfo.getId();
+			return adInfo.getId(); // return the advertising id if the user opted in
 		else
 			return null;
 
@@ -274,7 +278,6 @@ public class MainActivity extends Activity {
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_menu_help).setTitle("Exit")
                 .setMessage("Do you want to exit?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
                     public void onClick(DialogInterface dialog, int which) {
                     	Intent intent = new Intent(Intent.ACTION_MAIN);
                         intent.addCategory(Intent.CATEGORY_HOME);
