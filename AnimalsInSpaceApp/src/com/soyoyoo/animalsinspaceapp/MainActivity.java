@@ -128,7 +128,10 @@ public class MainActivity extends Activity {
 			public void run() {
 				try {
 					aid = getIdThread();  // get advertising id
-					Log.v("ADID", aid);
+					if (aid !=null)
+						Log.v("ADID", aid);
+					else
+						Log.v("ADID", "NA");
 					finished(aid);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -181,10 +184,16 @@ public class MainActivity extends Activity {
 		// create a ScreenViewBuilder to send a screen view to Google Analytics
 		ScreenViewBuilder hitBuilder = new HitBuilders.ScreenViewBuilder();
 		// set custom dimensions
-		hitBuilder.setCustomDimension(4, aid);
+		if (aid !=null)
+			hitBuilder.setCustomDimension(4, aid);
+		else 
+			hitBuilder.setCustomDimension(4, "NA");
 		hitBuilder.setCustomDimension(1, "page_view");
 
-		Log.v("AIID", aid);
+		if (aid !=null)
+			Log.v("ADID", aid);
+		else
+			Log.v("ADID", "NA");
 		// set a custom metric
 		hitBuilder.setCustomMetric(1, 1);
 

@@ -48,6 +48,7 @@ public class AnimalsInSpaceApp extends Application {
                             R.xml.global_tracker)
                             : analytics.newTracker(R.xml.ecommerce_tracker);
             t.enableAdvertisingIdCollection(true);
+            t.enableExceptionReporting(true);
             mTrackers.put(trackerId, t);
         }
         return mTrackers.get(trackerId);
